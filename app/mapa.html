@@ -1,0 +1,116 @@
+<HEADER>
+<TITLE>The World Wide Web project</TITLE>
+<NEXTID N="55">
+<script src="web/webcomponentsjs/webcomponents-lite.min.js"></script>
+<link rel="import" href="web/google-map.html">
+<link rel="import" href="web/google-map-marker.html">
+<link rel="import" href="web/google-map-poly.html">
+<link rel="import" href="web/google-map-directions.html">
+</HEADER>
+<BODY>
+<H1>World Wide Web</H1>The WorldWideWeb (W3) is a wide-area<A
+NAME=0 HREF="WhatIs.html">
+hypermedia</A> information retrieval
+initiative aiming to give universal
+access to a large universe of documents.<P>
+
+  <P>
+Everything there is online about
+W3 is linked directly or indirectly
+to this document, including an <A
+NAME=24 HREF="Summary.html">executive
+summary</A> of the project, <A
+NAME=29 HREF="Administration/Mailing/Overview.html">Mailing lists</A>
+, <A
+NAME=30 HREF="Policy.html">Policy</A> , November's  <A
+NAME=34 HREF="News/9211.html">W3  news</A> ,
+<A
+NAME=41 HREF="FAQ/List.html">Frequently Asked Questions</A> .
+<DL>
+<DT><A
+NAME=44 HREF="../DataSources/Top.html">What's out there?</A>
+<DD> Pointers to the
+world's online information,<A
+NAME=45 HREF="../DataSources/bySubject/Overview.html"> subjects</A>
+, <A
+NAME=z54 HREF="../DataSources/WWW/Servers.html">W3 servers</A>, etc.
+<DT><A
+NAME=46 HREF="Help.html">Help</A>
+<DD> on the browser you are using
+<DT><A
+NAME=13 HREF="Status.html">Software Products</A>
+<DD> A list of W3 project
+components and their current state.
+(e.g. <A
+NAME=27 HREF="LineMode/Browser.html">Line Mode</A> ,X11 <A
+NAME=35 HREF="Status.html#35">Viola</A> ,  <A
+NAME=26 HREF="NeXT/WorldWideWeb.html">NeXTStep</A>
+, <A
+NAME=25 HREF="Daemon/Overview.html">Servers</A> , <A
+NAME=51 HREF="Tools/Overview.html">Tools</A> ,<A
+NAME=53 HREF="MailRobot/Overview.html"> Mail robot</A> ,<A
+NAME=52 HREF="Status.html#57">
+Library</A> )
+<DT><A
+NAME=47 HREF="Technical.html">Technical</A>
+<DD> Details of protocols, formats,
+program internals etc
+<DT><A
+NAME=40 HREF="Bibliography.html">Bibliography</A>
+<DD> Paper documentation
+on  W3 and references.
+<DT><A
+NAME=14 HREF="People.html">People</A>
+<DD> A list of some people involved
+in the project.
+<DT><A
+NAME=15 HREF="History.html">History</A>
+<DD> A summary of the history
+of the project.
+<DT><A
+NAME=37 HREF="Helping.html">How can I help</A> ?
+<DD> If you would like
+to support the web..
+<DT><A
+NAME=48 HREF="../README.html">Getting code</A>
+<DD> Getting the code by<A
+NAME=49 HREF="LineMode/Defaults/Distribution.html">
+anonymous FTP</A> , etc.</A>
+</DL>
+<template is="dom-bind">
+  <google-map latitude="46.23775792" longitude="6.0471046" zoom="15" min-zoom="9" max-zoom="17" language="pl" api-key="[[apiKey]]" style="height: 316px;">
+    <google-map-marker latitude="46.23775792" longitude="6.0471046"></google-map-marker>
+</template>
+<script>
+var t = document.querySelector('template');
+if (location.origin === 'https://user-content-dot-custom-elements.appspot.com') {
+  t.apiKey = 'AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc'; // TODO: update to your own API Key!
+}
+
+function toggleControls() {
+  var gmap = document.querySelector('google-map');
+  gmap.disableDefaultUi = !gmap.disableDefaultUi;
+}
+
+document.addEventListener('dom-change', function(e) {
+  var gmap = document.querySelector('google-map');
+  var directions = document.querySelector('google-map-directions');
+
+  gmap.addEventListener('api-load', function(e) {
+    document.querySelector('google-map-directions').map = this.map;
+  });
+
+  var marker = document.querySelector('google-map-marker');
+  var poly = document.querySelector('google-map-poly');
+  var point = document.querySelector('google-map-point');
+
+  marker.addEventListener('google-map-marker-dragend', function(e) {
+    var latLng = e.detail.latLng;
+    console.log('pin dropped', latLng.lat(), latLng.lng());
+    point.latitude = latLng.lat();
+    point.longitude = latLng.lng();
+    poly._buildPathFromPoints();
+  });
+});
+</script>
+</BODY>
