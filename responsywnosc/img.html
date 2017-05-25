@@ -1,0 +1,22 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- styles -->
+  <style>
+  .obrazek{
+    width:100%;
+  }
+  </style>
+</head>
+<body>
+
+<picture>
+  <source srcset="images/2k.jpg" media="(max-width: 400px)">
+  <source srcset="images/4k.jpg" media="(max-width: 800px)">
+  <source srcset="images/8k.jpg">
+  <img src="images/8k.jpg" alt="kotek" style="width:100%;">
+</picture>
+
+<img class="obrazek" src="images/obraz.jpg">
+</body>
+</html>
